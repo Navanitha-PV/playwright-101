@@ -29,19 +29,39 @@ export default defineConfig({
     // baseURL: 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    video: "on",
+    screenshot: "on",
+    trace: "on", // captures network logs + console
+  
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'],
+         launchOptions: {
+          // TestMu AI capabilities
+          args: [
+            "--cap-browserName=Chrome",
+            "--cap-os=Windows",
+            "--cap-osVersion=10",
+          ],
+        },
+       },
+      
     },
 
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: { ...devices['Desktop Firefox'], 
+        launchOptions: {
+          args: [
+            "--cap-browserName=Firefox",
+            "--cap-os=macOS",
+            "--cap-osVersion=Catalina",
+          ],
+        },},
     },
 
     {

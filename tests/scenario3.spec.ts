@@ -1,43 +1,47 @@
 import { test, expect, chromium } from "@playwright/test";
 
-test("Scenario 3: Input Form Submit", async ({}) => {
+test("Scenario 3: Input Form Submit", async ({page}) => {
 
-  const browser = await chromium.launch({
-      headless: false, // 👈 Add this
-    });
-  const page = await browser.newPage();
-  // 1. Open page
   await page.goto("https://www.testmuai.com/selenium-playground/");
 
-  // 2. Click Input Form Submit — locator 1: text
   await page.getByText("Input Form Submit").click();
-
   await page.waitForTimeout(2000);
-  // 3. Click Submit without filling form — locator 2: CSS
-  await page.locator("form button[type='submit']").click();
+  await page.locator("form").getByRole("button", { name: "Submit" }).click();
 
-  // 4. Assert validation error message
+  // Assert validation error message
   await expect(page.locator("input:invalid")).toBeTruthy();
-  // OR if there's a visible error message:
-  // await expect(page.getByText("Please fill in the fields")).toBeVisible();
+  
+  // 5. Fill in form fields
+  const form = await page.locator('#seleniumform');
 
-  // 5. Fill in form fields — locator 3: name attribute
-  await page.locator("[name='name']").fill("John Doe");
-  await page.locator("[name='email']").fill("johndoe@example.com");
-  await page.locator("[name='password']").fill("Test@1234");
-  await page.locator("[name='company']").fill("TestMu Inc");
-  await page.locator("[name='website']").fill("https://testmuai.com");
-
-  // 6. Select "United States" from Country dropdown — by text
-  await page.locator("[name='country']").selectOption({ label: "United States" });
-
-  await page.locator("[name='city']").fill("New York");
-  await page.locator("[name='address']").fill("123 Test Street");
-  await page.locator("[name='state']").fill("NY");
-  await page.locator("[name='zip']").fill("10001");
+  const testData  = {
+    name: "Navan",
+    email: "navanitha@testmuai.com",
+    password: "Test@1234",
+    company: "TestMu Inc",
+    website: "https://testmuai.com",
+    country: "United States",
+    city: "New York",
+    address1: "123 Test address",
+    address2: "345 Test address",
+    state: "NY",
+    zip: "10001"
+  };
+  await form.getByPlaceholder("Name").fill(testData.name);
+  await form.getByPlaceholder("Email").fill(testData.email);
+  await form.getByPlaceholder("Password").fill(testData.password);
+  await form.getByPlaceholder("Company").fill(testData.company);
+  await form.getByPlaceholder("Website").fill(testData.website);
+  await form.locator("[name='country']").selectOption({ label: "United States" });
+  await form.getByPlaceholder("City").fill(testData.city);
+  await form.getByPlaceholder("Address 1").fill(testData.address1);
+  await form.getByPlaceholder("Address 2").fill(testData.address2);
+  await form.getByPlaceholder("State").fill(testData.state);
+  await form.getByPlaceholder("Zip").fill(testData.zip);
 
   // 7. Submit form
-  await page.locator("button[type='submit']").click();
+  await page.locator("form").getByRole("button", { name: "Submit" }).click();
+
 
   // 8. Validate success message
   await expect(
