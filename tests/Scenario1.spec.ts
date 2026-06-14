@@ -1,6 +1,6 @@
 import { test, expect, chromium } from '@playwright/test';
 
-test("Scenario 1: Simple Form Demo", async ({page}) => {
+test("scenario 1: Simple Form Demo", async ({page}) => {
   await page.goto("https://www.testmuai.com/selenium-playground/");
 
   await page.getByText("Simple Form Demo").click();

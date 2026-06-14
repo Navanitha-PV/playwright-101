@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test("Scenario 3: Input Form Submit", async ({ page }) => {
+test("scenario 3: Input Form Submit", async ({ page }) => {
 
   await page.goto("https://www.testmuai.com/selenium-playground/");
 

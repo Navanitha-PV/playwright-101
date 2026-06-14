@@ -1,6 +1,6 @@
 import { test, expect, chromium } from "@playwright/test";
 
-test("Scenario 2: Drag & Drop Slider to 95", async ({page}) => {
+test("scenario 2: Drag & Drop Slider to 95", async ({page}) => {
 
   await page.goto("https://www.testmuai.com/selenium-playground/");
 
