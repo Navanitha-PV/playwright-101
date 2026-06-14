@@ -1,10 +1,7 @@
 import { test, expect, chromium } from "@playwright/test";
 
-test("Scenario 2: Drag & Drop Slider to 95", async ({}) => {
-   const browser = await chromium.launch({
-      headless: false, // 👈 Add this
-    });
-  const page = await browser.newPage();
+test("Scenario 2: Drag & Drop Slider to 95", async ({page}) => {
+
   await page.goto("https://www.testmuai.com/selenium-playground/");
 
   await page.getByText("Drag & Drop Sliders").click();
@@ -31,4 +28,6 @@ test("Scenario 2: Drag & Drop Slider to 95", async ({}) => {
   //  Validate range shows 95 — locator 3: CSS
   const rangeValue = page.locator("#rangeSuccess");
   await expect(rangeValue).toHaveText("95");
+
+  await page.close();
 });

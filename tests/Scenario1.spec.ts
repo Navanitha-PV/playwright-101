@@ -1,11 +1,6 @@
 import { test, expect, chromium } from '@playwright/test';
 
-test("Scenario 1: Simple Form Demo", async ({}) => {
-
-   const browser = await chromium.launch({
-    headless: false,
-  });
-  const page = await browser.newPage();
+test("Scenario 1: Simple Form Demo", async ({page}) => {
   await page.goto("https://www.testmuai.com/selenium-playground/");
 
   await page.getByText("Simple Form Demo").click();
@@ -24,5 +19,7 @@ test("Scenario 1: Simple Form Demo", async ({}) => {
   const displayedMessage = await page.locator('#message').innerText();
   console.log("Displayed Message:", displayedMessage); 
   await expect(displayedMessage).toBe(message);
+
+  await page.close();
 
 });
