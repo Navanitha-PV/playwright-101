@@ -52,7 +52,7 @@ test("Scenario 3: Input Form Submit", async ({ page }) => {
   //Submit form - using role locator
   await page.locator("form").getByRole("button", { name: "Submit" }).click();
 
-  // Step 7: Validate success message - using text locator
+ //Validate success message - using text locator
   await expect(
     page.getByText("Thanks for contacting us, we will get back to you shortly.")
   ).toBeVisible({ timeout: 15000 });
